@@ -27,7 +27,7 @@
 -(id)initWithStyle:(UITableViewStyle)style infoPanelSize:(CGSize)size {
   if ((self = [super init])) {
     __infoPanelSize = size;
-    __tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:style];
+    __tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 320) style:style];
     __tableView.delegate = self;
     __tableView.dataSource = self;
     self.view.backgroundColor = [UIColor whiteColor];
@@ -41,7 +41,8 @@
 -(void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   // The panel
-  __infoPanel = [[UIView alloc] initWithFrame:CGRectMake(0, 0, __infoPanelSize.width, __infoPanelSize.height)];
+  __infoPanelInitialFrame = CGRectMake(-__infoPanelSize.width, 0, __infoPanelSize.width, __infoPanelSize.height);
+  __infoPanel = [[UIView alloc] initWithFrame:__infoPanelInitialFrame];
 
   // Initialize overlay panel with stretchable background
   UIImageView * bg = [[UIImageView alloc] initWithFrame:__infoPanel.bounds];
@@ -49,28 +50,57 @@
   bg.image = [overlay stretchableImageWithLeftCapWidth:overlay.size.width/2.0 topCapHeight:overlay.size.height/2.0];
   [__infoPanel setAlpha:0];
   [__infoPanel addSubview:bg];
-  [self.view addSubview:__infoPanel];
 }
 
 #pragma mark - Scroll view delegate
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)aScrollView {
-  [UIView animateWithDuration:0.5 animations:^{
-    __infoPanel.alpha = 1;
-  }];
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+  if (![__infoPanel superview]) {
+    // Add it to indicator
+    UIView * indicator = [[scrollView subviews] lastObject];
+    [indicator addSubview:__infoPanel];
+
+		// Adjust correct position
+		__initalScrollIndicatorHeight = indicator.frame.size.height;
+    CGRect f = __infoPanelInitialFrame;
+		f.origin.y = __initalScrollIndicatorHeight/2 - f.size.height/2;
+    CGRect f2 = f;
+    f2.origin.x += 16;
+		[__infoPanel setFrame:f2];
+
+    // Fade in and slide left
+    [UIView animateWithDuration:0.3 animations:^{
+      __infoPanel.alpha = 1;
+      __infoPanel.frame = f;
+    }];
+	}
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
-  UIView * indicator = [[aScrollView subviews] lastObject];
-  CGRect indicatorFrame = [indicator frame];
-  CGFloat x = self.tableView.frame.size.width-__infoPanel.frame.size.width/2.0;
-  CGFloat y = indicatorFrame.origin.y - aScrollView.contentOffset.y + indicatorFrame.size.height/2.0;
-  __infoPanel.center = CGPointMake(x, y);
+//  UIView * indicator = [[aScrollView subviews] lastObject];
+//  CGRect indicatorFrame = [indicator frame];
+//  CGFloat x = self.tableView.frame.size.width-__infoPanel.frame.size.width/2.0;
+//  CGFloat y = indicatorFrame.origin.y - aScrollView.contentOffset.y + indicatorFrame.size.height/2.0;
+//  __infoPanel.center = CGPointMake(x, y);
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-  [UIView animateWithDuration:0.5 animations:^{
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+
+  // Remove it from indicator
+  UIView * indicator = [[scrollView subviews] lastObject];
+//  [__infoPanel removeFromSuperview];
+  
+  // Fade out and slide out to the right
+  CGRect f = __infoPanel.frame;
+  f.origin.y = indicator.frame.size.height/2 - f.size.height/2;
+  f.origin.x += 16;
+
+  // Go
+  [UIView animateWithDuration:0.3 animations:^{
     __infoPanel.alpha = 0;
+    __infoPanel.frame = f;
+  } completion:^(BOOL finished) {
+    [__infoPanel removeFromSuperview];
   }];
 }
 

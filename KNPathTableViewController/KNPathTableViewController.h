@@ -11,6 +11,7 @@
 @interface KNPathTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
   UIView * __infoPanel;
   CGSize   __infoPanelSize;
+  CGRect   __infoPanelInitialFrame;
   CGFloat  __initalScrollIndicatorHeight;
   UITableView * __tableView;
 }
