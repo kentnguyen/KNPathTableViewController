@@ -1,61 +1,45 @@
 //
-//  KNFirstViewController.m
+//  KNThirdViewController.m
 //  KNPathTableViewControllerDemo
 //
-//  Created by Kent Nguyen on 12/1/12.
-//  Copyright (c) 2012. All rights reserved.
+//  Created by My Accounts on 13/1/12.
+//  Copyright (c) 2012 Anideo. All rights reserved.
 //
 
-#import "KNFirstViewController.h"
+#import "KNThirdViewController.h"
 
-@implementation KNFirstViewController
+@implementation KNThirdViewController
 
 -(id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
   if (self) {
-    self.title = @"Basic demo";
+    self.title = @"Section demo";
     self.tabBarItem.image = [UIImage imageNamed:@"first"];
-
+    
     // Add a series of number
     array = [[NSMutableArray alloc] init];
     for (int k=0;k<100;k++) {
-      [array addObject:[NSString stringWithFormat:@"Test row number %d", k]];
+      [array addObject:[NSString stringWithFormat:@"More advance row %d", k]];
     }
   }
   return self;
 }
 
-#pragma mark - Basic use for the info panel
-
--(void)viewDidLoad {
-  [super viewDidLoad];
-  infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 4, 140, 20)];
-  infoLabel.font = [UIFont boldSystemFontOfSize:12];
-  infoLabel.textAlignment = UITextAlignmentLeft;
-  infoLabel.textColor = [UIColor whiteColor];
-  infoLabel.shadowColor = [UIColor blackColor];
-  infoLabel.backgroundColor = [UIColor clearColor];
-  infoLabel.shadowOffset = CGSizeMake(0, 1);
-  // [self.infoPanel addSubview:infoLabel] // this will not work, too early to add
-}
-
--(void)infoPanelWillAppear:(UIScrollView *)scrollView {
-  if (![infoLabel superview]) [self.infoPanel addSubview:infoLabel];
-}
+#pragma mark - Showing section title
 
 -(void)infoPanelDidScroll:(UIScrollView *)scrollView atPoint:(CGPoint)point {
   NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:point];
-  infoLabel.text = [NSString stringWithFormat:@"Something about %d", indexPath.row];
+  infoLabel.text = [NSString stringWithFormat:@"In section %d", indexPath.section+1];
 }
 
 #pragma mark - Give table some content
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return 1;
+  return 10;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return [array count];
+  return [array count]/10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -65,13 +49,18 @@
   if (cell == nil) {
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
   }
-
-  cell.textLabel.text = [array objectAtIndex:indexPath.row];
+  
+  cell.textLabel.text = [array objectAtIndex:indexPath.row+(indexPath.section*[array count]/10)];
   return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
+#pragma mark - Table header
+
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+  return [NSString stringWithFormat:@"Section number %d", section+1];
+}
 
 @end
