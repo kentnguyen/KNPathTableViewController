@@ -11,6 +11,7 @@
 
 @interface KNFirstViewController : KNPathTableViewController {
   NSMutableArray * array;
+  UILabel * infoLabel;
 }
 
 @end
