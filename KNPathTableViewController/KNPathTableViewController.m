@@ -18,7 +18,7 @@
 #pragma mark - Custom init
 
 -(id)initWithStyle:(UITableViewStyle)style {
-  if ((self = [self initWithStyle:style infoPanelSize:CGSizeMake(32, 150)])) {
+  if ((self = [self initWithStyle:style infoPanelSize:CGSizeMake(150, 32)])) {
   }
   return self;
 }
@@ -33,10 +33,14 @@
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad {
-  // Determine the size of background image and make stretchable background
-  CGSize s = [UIImage imageNamed:@"KNTableOverlay"].size;
-	__infoPanel = [[UIView alloc] initWithFrame:CGRectMake(-__infoPanelSize.width, 0, __infoPanelSize.width, __infoPanelSize.height)];
-  __infoPanel.backgroundColor = [UIColor colorWithPatternImage:[[UIImage imageNamed:@"KNTableOverlay"] stretchableImageWithLeftCapWidth:s.width/2 topCapHeight:s.height/2]];
+  // The panel
+  __infoPanel = [[UIView alloc] initWithFrame:CGRectMake(-__infoPanelSize.width, 0, __infoPanelSize.width, __infoPanelSize.height)];
+
+  // Determine the size of background image
+  UIImageView * bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, __infoPanelSize.width, __infoPanelSize.height)];
+  UIImage * overlay = [UIImage imageNamed:@"KNTableOverlay"];
+  bg.image = [overlay stretchableImageWithLeftCapWidth:overlay.size.width/2 topCapHeight:overlay.size.height/2];
+  [__infoPanel addSubview:bg];
 }
 
 
