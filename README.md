@@ -5,6 +5,9 @@ KNPathTableViewController is an UITableViewController with an customizable overl
 <img src="https://github.com/kentnguyen/KNPathTableViewController/blob/master/screenshot1.png?raw=true" />``
 <img src="https://github.com/kentnguyen/KNPathTableViewController/blob/master/screenshot2.png?raw=true" />
 
+### Demo
+
+Download a demo clip [here](https://github.com/kentnguyen/KNPathTableViewController/blob/master/demo_clip.mov?raw=true) (1MB, .mov)
 
 ### Features
 * Implemented as generic UIView with UIImageView background
