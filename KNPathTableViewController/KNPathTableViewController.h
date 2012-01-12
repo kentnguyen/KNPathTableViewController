@@ -8,14 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KNPathTableViewController : UITableViewController {
+@interface KNPathTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
   UIView * __infoPanel;
   CGSize   __infoPanelSize;
   CGFloat  __initalScrollIndicatorHeight;
+  UITableView * __tableView;
 }
 
 @property (nonatomic,readonly) UIView * infoPanel;
+@property (nonatomic,readonly) UITableView * tableView;
 
+-(id)initWithStyle:(UITableViewStyle)style;
 -(id)initWithStyle:(UITableViewStyle)style infoPanelSize:(CGSize)size;
 
 @end

@@ -14,6 +14,7 @@
 #pragma mark - The properties
 
 @synthesize infoPanel = __infoPanel;
+@synthesize tableView = __tableView;
 
 #pragma mark - Custom init
 
@@ -24,65 +25,53 @@
 }
 
 -(id)initWithStyle:(UITableViewStyle)style infoPanelSize:(CGSize)size {
-  if ((self = [super initWithStyle:style])) {
+  if ((self = [super init])) {
     __infoPanelSize = size;
+    __tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:style];
+    __tableView.delegate = self;
+    __tableView.dataSource = self;
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:__tableView];
   }
   return self;
 }
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
+-(void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
   // The panel
-  __infoPanel = [[UIView alloc] initWithFrame:CGRectMake(-__infoPanelSize.width, 0, __infoPanelSize.width, __infoPanelSize.height)];
+  __infoPanel = [[UIView alloc] initWithFrame:CGRectMake(0, 0, __infoPanelSize.width, __infoPanelSize.height)];
 
-  // Determine the size of background image
-  UIImageView * bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, __infoPanelSize.width, __infoPanelSize.height)];
+  // Initialize overlay panel with stretchable background
+  UIImageView * bg = [[UIImageView alloc] initWithFrame:__infoPanel.bounds];
   UIImage * overlay = [UIImage imageNamed:@"KNTableOverlay"];
-  bg.image = [overlay stretchableImageWithLeftCapWidth:overlay.size.width/2 topCapHeight:overlay.size.height/2];
+  bg.image = [overlay stretchableImageWithLeftCapWidth:overlay.size.width/2.0 topCapHeight:overlay.size.height/2.0];
+  [__infoPanel setAlpha:0];
   [__infoPanel addSubview:bg];
+  [self.view addSubview:__infoPanel];
 }
 
 #pragma mark - Scroll view delegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)aScrollView {
-	if (![__infoPanel superview]) {
-		UIView * indicator = [[aScrollView subviews] lastObject];
-		CGRect indicatorFrame = [indicator frame];
-		__initalScrollIndicatorHeight = indicatorFrame.size.height;
-
-		[[__infoPanel layer] setBackgroundColor:[[indicator layer] backgroundColor]];
-		[[indicator layer] addSublayer:[__infoPanel layer]];
-
-		// Center the info panel
-		CGRect infoPanelFrame = [__infoPanel frame];
-		infoPanelFrame.size = __infoPanelSize;
-		infoPanelFrame.origin.y = indicatorFrame.size.height / 2 - infoPanelFrame.size.height / 2;
-		[__infoPanel setFrame:CGRectIntegral(infoPanelFrame)];
-	}
+  [UIView animateWithDuration:0.5 animations:^{
+    __infoPanel.alpha = 1;
+  }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
-	UIView *indicator = [[aScrollView subviews] lastObject];
-	CGRect indicatorFrame = [indicator frame];
-
-	// We are somewhere at the edge (top or bottom)
-	if (indicatorFrame.size.height < __initalScrollIndicatorHeight) {
-		CGRect infoPanelFrame = [__infoPanel frame];
-
-		// The indicator starts shrinking, so we need to adjust our info panel's y-origin to stays centered
-		if (indicatorFrame.size.height > infoPanelFrame.size.height + 2) 
-			infoPanelFrame.origin.y = (indicatorFrame.size.height / 2) - (infoPanelFrame.size.height / 2);
-		// We are at the bottom of the screen and the indicator is now smaller than our info panel
-		else if (indicatorFrame.origin.y > 0)
-			infoPanelFrame.origin.y = (infoPanelFrame.size.height - indicatorFrame.size.height) * -1;
-
-		[__infoPanel setFrame:infoPanelFrame];
-	}
+  UIView * indicator = [[aScrollView subviews] lastObject];
+  CGRect indicatorFrame = [indicator frame];
+  CGFloat x = self.tableView.frame.size.width-__infoPanel.frame.size.width/2.0;
+  CGFloat y = indicatorFrame.origin.y - aScrollView.contentOffset.y + indicatorFrame.size.height/2.0;
+  __infoPanel.center = CGPointMake(x, y);
 }
 
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-	[__infoPanel removeFromSuperview];
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+  [UIView animateWithDuration:0.5 animations:^{
+    __infoPanel.alpha = 0;
+  }];
 }
 
 #pragma mark - Blank implementations
