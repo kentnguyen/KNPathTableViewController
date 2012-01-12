@@ -25,7 +25,7 @@
 #pragma mark - Custom init
 
 -(id)initWithStyle:(UITableViewStyle)style {
-  if ((self = [self initWithStyle:style infoPanelSize:CGSizeMake(150, 32)])) {
+  if ((self = [self initWithStyle:style infoPanelSize:KNPathTableOverlayDefaultSize])) {
   }
   return self;
 }
@@ -33,16 +33,20 @@
 -(id)initWithStyle:(UITableViewStyle)style infoPanelSize:(CGSize)size {
   if ((self = [super init])) {
     __infoPanelSize = size;
-    __tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 320) style:style];
+    __tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:style];
     __tableView.delegate = self;
     __tableView.dataSource = self;
-    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:__tableView];
   }
   return self;
 }
 
 #pragma mark - View lifecycle
+
+-(void)viewDidLoad {
+  [super viewDidLoad];
+  [__tableView reloadData];
+}
 
 -(void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
