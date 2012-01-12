@@ -65,6 +65,15 @@
   [__infoPanel addSubview:bg];
 }
 
+#pragma mark - Meant to be override
+
+-(void)infoPanelWillAppear:(UIScrollView*)scrollView    {}
+-(void)infoPanelDidAppear:(UIScrollView*)scrollView     {}
+-(void)infoPanelWillDisappear:(UIScrollView*)scrollView {}
+-(void)infoPanelDidDisappear:(UIScrollView*)scrollView  {}
+-(void)infoPanelDidScroll:(UIScrollView*)scrollView     {}
+-(void)infoPanelDidStopScrolling:(UIScrollView*)scrollView {}
+
 #pragma mark - Scroll view delegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -84,10 +93,13 @@
 		[__infoPanel setFrame:f2];
 
     // Fade in and slide left
+    [self infoPanelWillAppear:scrollView];
     [UIView animateWithDuration:KNPathTableFadeInDuration
                      animations:^{
       __infoPanel.alpha = 1;
       __infoPanel.frame = f;
+    } completion:^(BOOL finished) {
+      [self infoPanelDidAppear:scrollView];
     }];
 	}
   
@@ -119,24 +131,15 @@
   else if ([__infoPanel superview] != indicator) {
     [self moveInfoPanelToIndicatorView];
   }
+
+  [self infoPanelDidScroll:scrollView];
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
   // Remove it from indicator view but maintain position
   if ([__infoPanel superview] != self.view) [self moveInfoPanelToSuperView];
   [self performSelector:@selector(slideOutInfoPanel) withObject:nil afterDelay:KNPathTableFadeOutDelay];
-}
-
--(void)slideOutInfoPanel {
-  CGRect f = __infoPanel.frame;
-  f.origin.x += KNPathTableSlideInOffset;
-  [UIView animateWithDuration:KNPathTableFadeOutDuration
-                   animations:^{
-    __infoPanel.alpha = 0;
-    __infoPanel.frame = f;
-  } completion:^(BOOL finished) {
-    [__infoPanel removeFromSuperview];
-  }];
+  [self infoPanelDidStopScrolling:scrollView];
 }
 
 #pragma mark - Helper methods
@@ -156,6 +159,20 @@
   if ([__infoPanel superview]) [__infoPanel removeFromSuperview];
   [indicator addSubview:__infoPanel];
   __infoPanel.frame = f;
+}
+
+-(void)slideOutInfoPanel {
+  CGRect f = __infoPanel.frame;
+  f.origin.x += KNPathTableSlideInOffset;
+  [self infoPanelWillDisappear:__tableView];
+  [UIView animateWithDuration:KNPathTableFadeOutDuration
+                   animations:^{
+                     __infoPanel.alpha = 0;
+                     __infoPanel.frame = f;
+                   } completion:^(BOOL finished) {
+                     [__infoPanel removeFromSuperview];
+                     [self infoPanelDidDisappear:__tableView];
+                   }];
 }
 
 #pragma mark - Blank implementations
