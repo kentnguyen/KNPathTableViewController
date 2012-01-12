@@ -50,6 +50,9 @@
 
 -(void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
+  // Fix table size
+  __tableView.frame = self.view.bounds;
+
   // The panel
   __infoPanelInitialFrame = CGRectMake(-__infoPanelSize.width, 0, __infoPanelSize.width, __infoPanelSize.height);
   __infoPanel = [[UIView alloc] initWithFrame:__infoPanelInitialFrame];
