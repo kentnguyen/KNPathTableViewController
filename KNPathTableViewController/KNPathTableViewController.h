@@ -11,7 +11,7 @@
 @interface KNPathTableViewController : UITableViewController {
   UIView * __infoPanel;
   CGSize   __infoPanelSize;
-  CGFloat  initalScrollIndicatorHeight;
+  CGFloat  __initalScrollIndicatorHeight;
 }
 
 @property (nonatomic,readonly) UIView * infoPanel;

@@ -43,6 +43,47 @@
   [__infoPanel addSubview:bg];
 }
 
+#pragma mark - Scroll view delegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)aScrollView {
+	if (![__infoPanel superview]) {
+		UIView * indicator = [[aScrollView subviews] lastObject];
+		CGRect indicatorFrame = [indicator frame];
+		__initalScrollIndicatorHeight = indicatorFrame.size.height;
+
+		[[__infoPanel layer] setBackgroundColor:[[indicator layer] backgroundColor]];
+		[[indicator layer] addSublayer:[__infoPanel layer]];
+
+		// Center the info panel
+		CGRect infoPanelFrame = [__infoPanel frame];
+		infoPanelFrame.size = __infoPanelSize;
+		infoPanelFrame.origin.y = indicatorFrame.size.height / 2 - infoPanelFrame.size.height / 2;
+		[__infoPanel setFrame:CGRectIntegral(infoPanelFrame)];
+	}
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
+	UIView *indicator = [[aScrollView subviews] lastObject];
+	CGRect indicatorFrame = [indicator frame];
+
+	// We are somewhere at the edge (top or bottom)
+	if (indicatorFrame.size.height < __initalScrollIndicatorHeight) {
+		CGRect infoPanelFrame = [__infoPanel frame];
+
+		// The indicator starts shrinking, so we need to adjust our info panel's y-origin to stays centered
+		if (indicatorFrame.size.height > infoPanelFrame.size.height + 2) 
+			infoPanelFrame.origin.y = (indicatorFrame.size.height / 2) - (infoPanelFrame.size.height / 2);
+		// We are at the bottom of the screen and the indicator is now smaller than our info panel
+		else if (indicatorFrame.origin.y > 0)
+			infoPanelFrame.origin.y = (infoPanelFrame.size.height - indicatorFrame.size.height) * -1;
+
+		[__infoPanel setFrame:infoPanelFrame];
+	}
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+	[__infoPanel removeFromSuperview];
+}
 
 #pragma mark - Blank implementations
 
