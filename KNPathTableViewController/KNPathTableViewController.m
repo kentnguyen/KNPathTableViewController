@@ -9,6 +9,12 @@
 #import "KNPathTableViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
+@interface KNPathTableViewController (private)
+-(void)moveInfoPanelToSuperView;
+-(void)moveInfoPanelToIndicatorView;
+-(void)slideOutInfoPanel;
+@end
+
 @implementation KNPathTableViewController
 
 #pragma mark - The properties
@@ -55,19 +61,18 @@
 #pragma mark - Scroll view delegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-  // Find the indicator and calculate correct position
-  UIView * indicator = [[scrollView subviews] lastObject];
+  // Store height of indicator
+  UIView * indicator = [[self.tableView subviews] lastObject];
   __initalScrollIndicatorHeight = indicator.frame.size.height;
-  CGRect f = __infoPanelInitialFrame;
-  f.origin.y = __initalScrollIndicatorHeight/2 - f.size.height/2;
 
   // Starting from beginning
   if ([__infoPanel superview] == nil) {
     // Add it to indicator
-    [indicator addSubview:__infoPanel];
+    [self moveInfoPanelToIndicatorView];
 
 		// Prepare to slide in
-    CGRect f2 = f;
+    CGRect f = __infoPanel.frame;
+    CGRect f2= f;
     f2.origin.x += KNPathTableSlideInOffset;
 		[__infoPanel setFrame:f2];
 
@@ -82,27 +87,36 @@
   // If it is waiting to fade out, then maintain position
   else if ([__infoPanel superview] == self.view) {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(slideOutInfoPanel) object:nil];
-    [__infoPanel removeFromSuperview];
-    [indicator addSubview:__infoPanel];
-    __infoPanel.frame = f;
+    [self moveInfoPanelToIndicatorView];
   }
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
-//  UIView * indicator = [[aScrollView subviews] lastObject];
-//  CGRect indicatorFrame = [indicator frame];
-//  CGFloat x = self.tableView.frame.size.width-__infoPanel.frame.size.width/2.0;
-//  CGFloat y = indicatorFrame.origin.y - aScrollView.contentOffset.y + indicatorFrame.size.height/2.0;
-//  __infoPanel.center = CGPointMake(x, y);
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+  UIView * indicator = [[scrollView subviews] lastObject];
+
+  // Make sure the panel is visible
+  if (__infoPanel.alpha == 0) __infoPanel.alpha = 1;
+
+	// Current position is near bottom
+	if (indicator.frame.size.height < __initalScrollIndicatorHeight) {
+    if (scrollView.contentOffset.y > 0 && [__infoPanel superview] != self.view) {
+      // Move panel to a fixed position
+      [__infoPanel removeFromSuperview];
+      CGRect f = [self.view convertRect:__infoPanel.frame fromView:indicator];
+      __infoPanel.frame = CGRectMake(f.origin.x, self.tableView.frame.size.height-f.size.height, f.size.width, f.size.height);
+      [self.view addSubview:__infoPanel];
+    }
+	}
+
+  // Return the panel to indicator
+  else if ([__infoPanel superview] != indicator) {
+    [self moveInfoPanelToIndicatorView];
+  }
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
   // Remove it from indicator view but maintain position
-  UIView * indicator = [[scrollView subviews] lastObject];
-  CGRect f = [self.view convertRect:__infoPanel.frame fromView:indicator];
-  [__infoPanel removeFromSuperview];
-  __infoPanel.frame = f;
-  [self.view addSubview:__infoPanel];
+  if ([__infoPanel superview] != self.view) [self moveInfoPanelToSuperView];
   [self performSelector:@selector(slideOutInfoPanel) withObject:nil afterDelay:KNPathTableFadeOutDelay];
 }
 
@@ -116,6 +130,25 @@
   } completion:^(BOOL finished) {
     [__infoPanel removeFromSuperview];
   }];
+}
+
+#pragma mark - Helper methods
+
+-(void)moveInfoPanelToSuperView {
+  UIView * indicator = [[self.tableView subviews] lastObject];
+  CGRect f = [self.view convertRect:__infoPanel.frame fromView:indicator];
+  if ([__infoPanel superview]) [__infoPanel removeFromSuperview];
+  __infoPanel.frame = f;
+  [self.view addSubview:__infoPanel];
+}
+
+-(void)moveInfoPanelToIndicatorView {
+  UIView * indicator = [[self.tableView subviews] lastObject];
+  CGRect f = __infoPanelInitialFrame;
+  f.origin.y = indicator.frame.size.height/2 - f.size.height/2;
+  if ([__infoPanel superview]) [__infoPanel removeFromSuperview];
+  [indicator addSubview:__infoPanel];
+  __infoPanel.frame = f;
 }
 
 #pragma mark - Blank implementations
