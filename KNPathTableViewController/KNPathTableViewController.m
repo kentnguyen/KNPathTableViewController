@@ -55,25 +55,37 @@
 #pragma mark - Scroll view delegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-  if (![__infoPanel superview]) {
+  // Find the indicator and calculate correct position
+  UIView * indicator = [[scrollView subviews] lastObject];
+  __initalScrollIndicatorHeight = indicator.frame.size.height;
+  CGRect f = __infoPanelInitialFrame;
+  f.origin.y = __initalScrollIndicatorHeight/2 - f.size.height/2;
+
+  // Starting from beginning
+  if ([__infoPanel superview] == nil) {
     // Add it to indicator
-    UIView * indicator = [[scrollView subviews] lastObject];
     [indicator addSubview:__infoPanel];
 
-		// Adjust correct position
-		__initalScrollIndicatorHeight = indicator.frame.size.height;
-    CGRect f = __infoPanelInitialFrame;
-		f.origin.y = __initalScrollIndicatorHeight/2 - f.size.height/2;
+		// Prepare to slide in
     CGRect f2 = f;
-    f2.origin.x += 16;
+    f2.origin.x += KNPathTableSlideInOffset;
 		[__infoPanel setFrame:f2];
 
     // Fade in and slide left
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:KNPathTableFadeInDuration
+                     animations:^{
       __infoPanel.alpha = 1;
       __infoPanel.frame = f;
     }];
 	}
+  
+  // If it is waiting to fade out, then maintain position
+  else if ([__infoPanel superview] == self.view) {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(slideOutInfoPanel) object:nil];
+    [__infoPanel removeFromSuperview];
+    [indicator addSubview:__infoPanel];
+    __infoPanel.frame = f;
+  }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
@@ -85,18 +97,20 @@
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-
-  // Remove it from indicator
+  // Remove it from indicator view but maintain position
   UIView * indicator = [[scrollView subviews] lastObject];
-//  [__infoPanel removeFromSuperview];
-  
-  // Fade out and slide out to the right
-  CGRect f = __infoPanel.frame;
-  f.origin.y = indicator.frame.size.height/2 - f.size.height/2;
-  f.origin.x += 16;
+  CGRect f = [self.view convertRect:__infoPanel.frame fromView:indicator];
+  [__infoPanel removeFromSuperview];
+  __infoPanel.frame = f;
+  [self.view addSubview:__infoPanel];
+  [self performSelector:@selector(slideOutInfoPanel) withObject:nil afterDelay:KNPathTableFadeOutDelay];
+}
 
-  // Go
-  [UIView animateWithDuration:0.3 animations:^{
+-(void)slideOutInfoPanel {
+  CGRect f = __infoPanel.frame;
+  f.origin.x += KNPathTableSlideInOffset;
+  [UIView animateWithDuration:KNPathTableFadeOutDuration
+                   animations:^{
     __infoPanel.alpha = 0;
     __infoPanel.frame = f;
   } completion:^(BOOL finished) {

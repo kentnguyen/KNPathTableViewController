@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#define KNPathTableFadeInDuration         0.3
+#define KNPathTableFadeOutDuration        0.3
+#define KNPathTableFadeOutDelay           0.5
+#define KNPathTableSlideInOffset         16.0
+
 @interface KNPathTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
   UIView * __infoPanel;
   CGSize   __infoPanelSize;
