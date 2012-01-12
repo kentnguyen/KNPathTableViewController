@@ -13,15 +13,16 @@
 		376B0CFB14BF18800049756D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 376B0CF914BF18800049756D /* InfoPlist.strings */; };
 		376B0CFD14BF18800049756D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 376B0CFC14BF18800049756D /* main.m */; };
 		376B0D0114BF18800049756D /* KNAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 376B0D0014BF18800049756D /* KNAppDelegate.m */; };
-		376B0D0414BF18800049756D /* KNFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 376B0D0314BF18800049756D /* KNFirstViewController.m */; };
 		376B0D0614BF18800049756D /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 376B0D0514BF18800049756D /* first.png */; };
 		376B0D0814BF18800049756D /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 376B0D0714BF18800049756D /* first@2x.png */; };
 		376B0D0B14BF18800049756D /* KNSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 376B0D0A14BF18800049756D /* KNSecondViewController.m */; };
 		376B0D0D14BF18800049756D /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 376B0D0C14BF18800049756D /* second.png */; };
 		376B0D0F14BF18800049756D /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 376B0D0E14BF18800049756D /* second@2x.png */; };
-		376B0D1214BF18800049756D /* KNFirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 376B0D1014BF18800049756D /* KNFirstViewController.xib */; };
 		376B0D1514BF18800049756D /* KNSecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 376B0D1314BF18800049756D /* KNSecondViewController.xib */; };
-		376B0D2014BF19260049756D /* KNPathTableViewController in Resources */ = {isa = PBXBuildFile; fileRef = 376B0D1F14BF19260049756D /* KNPathTableViewController */; };
+		376B0D2814BF1C6A0049756D /* KNPathTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 376B0D2514BF1C6A0049756D /* KNPathTableViewController.m */; };
+		376B0D2914BF1C6A0049756D /* KNTableOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 376B0D2614BF1C6A0049756D /* KNTableOverlay.png */; };
+		376B0D2A14BF1C6A0049756D /* KNTableOverlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 376B0D2714BF1C6A0049756D /* KNTableOverlay@2x.png */; };
+		376B0D2E14BF1D400049756D /* KNFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 376B0D2D14BF1D3F0049756D /* KNFirstViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,17 +36,19 @@
 		376B0CFE14BF18800049756D /* KNPathTableViewControllerDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KNPathTableViewControllerDemo-Prefix.pch"; sourceTree = "<group>"; };
 		376B0CFF14BF18800049756D /* KNAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KNAppDelegate.h; sourceTree = "<group>"; };
 		376B0D0014BF18800049756D /* KNAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KNAppDelegate.m; sourceTree = "<group>"; };
-		376B0D0214BF18800049756D /* KNFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KNFirstViewController.h; sourceTree = "<group>"; };
-		376B0D0314BF18800049756D /* KNFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KNFirstViewController.m; sourceTree = "<group>"; };
 		376B0D0514BF18800049756D /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
 		376B0D0714BF18800049756D /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
 		376B0D0914BF18800049756D /* KNSecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KNSecondViewController.h; sourceTree = "<group>"; };
 		376B0D0A14BF18800049756D /* KNSecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KNSecondViewController.m; sourceTree = "<group>"; };
 		376B0D0C14BF18800049756D /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
 		376B0D0E14BF18800049756D /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
-		376B0D1114BF18800049756D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/KNFirstViewController.xib; sourceTree = "<group>"; };
 		376B0D1414BF18800049756D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/KNSecondViewController.xib; sourceTree = "<group>"; };
-		376B0D1F14BF19260049756D /* KNPathTableViewController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KNPathTableViewController; sourceTree = "<group>"; };
+		376B0D2414BF1C6A0049756D /* KNPathTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KNPathTableViewController.h; sourceTree = "<group>"; };
+		376B0D2514BF1C6A0049756D /* KNPathTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KNPathTableViewController.m; sourceTree = "<group>"; };
+		376B0D2614BF1C6A0049756D /* KNTableOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KNTableOverlay.png; sourceTree = "<group>"; };
+		376B0D2714BF1C6A0049756D /* KNTableOverlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KNTableOverlay@2x.png"; sourceTree = "<group>"; };
+		376B0D2B14BF1D0F0049756D /* KNFirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KNFirstViewController.h; sourceTree = "<group>"; };
+		376B0D2D14BF1D3F0049756D /* KNFirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KNFirstViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +68,7 @@
 		376B0CE114BF18800049756D = {
 			isa = PBXGroup;
 			children = (
-				376B0D1F14BF19260049756D /* KNPathTableViewController */,
+				376B0D2314BF1C6A0049756D /* KNPathTableViewController */,
 				376B0CF614BF18800049756D /* KNPathTableViewControllerDemo */,
 				376B0CEF14BF18800049756D /* Frameworks */,
 				376B0CED14BF18800049756D /* Products */,
@@ -93,17 +96,16 @@
 		376B0CF614BF18800049756D /* KNPathTableViewControllerDemo */ = {
 			isa = PBXGroup;
 			children = (
-				376B0CFF14BF18800049756D /* KNAppDelegate.h */,
-				376B0D0014BF18800049756D /* KNAppDelegate.m */,
-				376B0D0214BF18800049756D /* KNFirstViewController.h */,
-				376B0D0314BF18800049756D /* KNFirstViewController.m */,
 				376B0D0514BF18800049756D /* first.png */,
 				376B0D0714BF18800049756D /* first@2x.png */,
-				376B0D0914BF18800049756D /* KNSecondViewController.h */,
-				376B0D0A14BF18800049756D /* KNSecondViewController.m */,
 				376B0D0C14BF18800049756D /* second.png */,
 				376B0D0E14BF18800049756D /* second@2x.png */,
-				376B0D1014BF18800049756D /* KNFirstViewController.xib */,
+				376B0CFF14BF18800049756D /* KNAppDelegate.h */,
+				376B0D0014BF18800049756D /* KNAppDelegate.m */,
+				376B0D2B14BF1D0F0049756D /* KNFirstViewController.h */,
+				376B0D2D14BF1D3F0049756D /* KNFirstViewController.m */,
+				376B0D0914BF18800049756D /* KNSecondViewController.h */,
+				376B0D0A14BF18800049756D /* KNSecondViewController.m */,
 				376B0D1314BF18800049756D /* KNSecondViewController.xib */,
 				376B0CF714BF18800049756D /* Supporting Files */,
 			);
@@ -119,6 +121,17 @@
 				376B0CFE14BF18800049756D /* KNPathTableViewControllerDemo-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		376B0D2314BF1C6A0049756D /* KNPathTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				376B0D2414BF1C6A0049756D /* KNPathTableViewController.h */,
+				376B0D2514BF1C6A0049756D /* KNPathTableViewController.m */,
+				376B0D2614BF1C6A0049756D /* KNTableOverlay.png */,
+				376B0D2714BF1C6A0049756D /* KNTableOverlay@2x.png */,
+			);
+			path = KNPathTableViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,9 +190,9 @@
 				376B0D0814BF18800049756D /* first@2x.png in Resources */,
 				376B0D0D14BF18800049756D /* second.png in Resources */,
 				376B0D0F14BF18800049756D /* second@2x.png in Resources */,
-				376B0D1214BF18800049756D /* KNFirstViewController.xib in Resources */,
 				376B0D1514BF18800049756D /* KNSecondViewController.xib in Resources */,
-				376B0D2014BF19260049756D /* KNPathTableViewController in Resources */,
+				376B0D2914BF1C6A0049756D /* KNTableOverlay.png in Resources */,
+				376B0D2A14BF1C6A0049756D /* KNTableOverlay@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,8 +205,9 @@
 			files = (
 				376B0CFD14BF18800049756D /* main.m in Sources */,
 				376B0D0114BF18800049756D /* KNAppDelegate.m in Sources */,
-				376B0D0414BF18800049756D /* KNFirstViewController.m in Sources */,
 				376B0D0B14BF18800049756D /* KNSecondViewController.m in Sources */,
+				376B0D2814BF1C6A0049756D /* KNPathTableViewController.m in Sources */,
+				376B0D2E14BF1D400049756D /* KNFirstViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,14 +220,6 @@
 				376B0CFA14BF18800049756D /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		376B0D1014BF18800049756D /* KNFirstViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				376B0D1114BF18800049756D /* en */,
-			);
-			name = KNFirstViewController.xib;
 			sourceTree = "<group>";
 		};
 		376B0D1314BF18800049756D /* KNSecondViewController.xib */ = {
