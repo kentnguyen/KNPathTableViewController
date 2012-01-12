@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "KNPathTableViewController.h"
 
-@interface KNFirstViewController : KNPathTableViewController
+@interface KNFirstViewController : KNPathTableViewController {
+  NSMutableArray * array;
+}
 
 @end
