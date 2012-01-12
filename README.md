@@ -10,7 +10,7 @@ KNPathTableViewController is an UITableViewController with an customizable overl
 * Implemented as generic UIView with UIImageView background
 * Exact match of Path animation and delayed sliding out
 * Handle overscroll correctly
-* 6 callback events for any needs (see `.h1`)
+* 6 callback events for any needs (see `.h`)
 
 ### Installation
 * Import 2 source files and 2 graphic files to your project
