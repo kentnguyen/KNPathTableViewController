@@ -21,6 +21,7 @@
 		376B0D0F14BF18800049756D /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 376B0D0E14BF18800049756D /* second@2x.png */; };
 		376B0D1214BF18800049756D /* KNFirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 376B0D1014BF18800049756D /* KNFirstViewController.xib */; };
 		376B0D1514BF18800049756D /* KNSecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 376B0D1314BF18800049756D /* KNSecondViewController.xib */; };
+		376B0D2014BF19260049756D /* KNPathTableViewController in Resources */ = {isa = PBXBuildFile; fileRef = 376B0D1F14BF19260049756D /* KNPathTableViewController */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		376B0D0E14BF18800049756D /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
 		376B0D1114BF18800049756D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/KNFirstViewController.xib; sourceTree = "<group>"; };
 		376B0D1414BF18800049756D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/KNSecondViewController.xib; sourceTree = "<group>"; };
+		376B0D1F14BF19260049756D /* KNPathTableViewController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KNPathTableViewController; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 		376B0CE114BF18800049756D = {
 			isa = PBXGroup;
 			children = (
+				376B0D1F14BF19260049756D /* KNPathTableViewController */,
 				376B0CF614BF18800049756D /* KNPathTableViewControllerDemo */,
 				376B0CEF14BF18800049756D /* Frameworks */,
 				376B0CED14BF18800049756D /* Products */,
@@ -176,6 +179,7 @@
 				376B0D0F14BF18800049756D /* second@2x.png in Resources */,
 				376B0D1214BF18800049756D /* KNFirstViewController.xib in Resources */,
 				376B0D1514BF18800049756D /* KNSecondViewController.xib in Resources */,
+				376B0D2014BF19260049756D /* KNPathTableViewController in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +313,7 @@
 				376B0D1A14BF18800049756D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
