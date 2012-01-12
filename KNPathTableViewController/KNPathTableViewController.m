@@ -32,11 +32,23 @@
 
 -(id)initWithStyle:(UITableViewStyle)style infoPanelSize:(CGSize)size {
   if ((self = [super init])) {
-    __infoPanelSize = size;
+    // The tableview
     __tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:style];
     __tableView.delegate = self;
     __tableView.dataSource = self;
     [self.view addSubview:__tableView];
+
+    // The panel
+    __infoPanelSize = size;
+    __infoPanelInitialFrame = CGRectMake(-__infoPanelSize.width, 0, __infoPanelSize.width, __infoPanelSize.height);
+    __infoPanel = [[UIView alloc] initWithFrame:__infoPanelInitialFrame];
+
+    // Initialize overlay panel with stretchable background
+    UIImageView * bg = [[UIImageView alloc] initWithFrame:__infoPanel.bounds];
+    UIImage * overlay = [UIImage imageNamed:@"KNTableOverlay"];
+    bg.image = [overlay stretchableImageWithLeftCapWidth:overlay.size.width/2.0 topCapHeight:overlay.size.height/2.0];
+    [__infoPanel setAlpha:0];
+    [__infoPanel addSubview:bg];
   }
   return self;
 }
@@ -52,26 +64,15 @@
   [super viewWillAppear:animated];
   // Fix table size
   __tableView.frame = self.view.bounds;
-
-  // The panel
-  __infoPanelInitialFrame = CGRectMake(-__infoPanelSize.width, 0, __infoPanelSize.width, __infoPanelSize.height);
-  __infoPanel = [[UIView alloc] initWithFrame:__infoPanelInitialFrame];
-
-  // Initialize overlay panel with stretchable background
-  UIImageView * bg = [[UIImageView alloc] initWithFrame:__infoPanel.bounds];
-  UIImage * overlay = [UIImage imageNamed:@"KNTableOverlay"];
-  bg.image = [overlay stretchableImageWithLeftCapWidth:overlay.size.width/2.0 topCapHeight:overlay.size.height/2.0];
-  [__infoPanel setAlpha:0];
-  [__infoPanel addSubview:bg];
 }
 
 #pragma mark - Meant to be override
 
--(void)infoPanelWillAppear:(UIScrollView*)scrollView    {}
--(void)infoPanelDidAppear:(UIScrollView*)scrollView     {}
+-(void)infoPanelWillAppear:(UIScrollView*)scrollView {}
+-(void)infoPanelDidAppear:(UIScrollView*)scrollView {}
 -(void)infoPanelWillDisappear:(UIScrollView*)scrollView {}
--(void)infoPanelDidDisappear:(UIScrollView*)scrollView  {}
--(void)infoPanelDidScroll:(UIScrollView*)scrollView     {}
+-(void)infoPanelDidDisappear:(UIScrollView*)scrollView {}
+-(void)infoPanelDidScroll:(UIScrollView*)scrollView atPoint:(CGPoint)point {}
 -(void)infoPanelDidStopScrolling:(UIScrollView*)scrollView {}
 
 #pragma mark - Scroll view delegate
@@ -132,7 +133,12 @@
     [self moveInfoPanelToIndicatorView];
   }
 
-  [self infoPanelDidScroll:scrollView];
+  // The current center of panel
+  if (scrollView.contentOffset.y > scrollView.contentSize.height - scrollView.frame.size.height) {
+    [self infoPanelDidScroll:scrollView atPoint:CGPointMake(indicator.center.x,scrollView.contentSize.height-1)];
+  } else {
+    [self infoPanelDidScroll:scrollView atPoint:indicator.center];
+  }
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {

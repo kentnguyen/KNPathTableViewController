@@ -45,7 +45,7 @@
 -(void)infoPanelDidAppear:(UIScrollView*)scrollView;
 -(void)infoPanelWillDisappear:(UIScrollView*)scrollView;
 -(void)infoPanelDidDisappear:(UIScrollView*)scrollView;
--(void)infoPanelDidScroll:(UIScrollView*)scrollView;
+-(void)infoPanelDidScroll:(UIScrollView*)scrollView atPoint:(CGPoint)point;
 -(void)infoPanelDidStopScrolling:(UIScrollView*)scrollView;
 
 @end
