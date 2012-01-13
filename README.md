@@ -17,6 +17,7 @@ Download a demo clip [here](https://github.com/kentnguyen/KNPathTableViewControl
 
 ### Installation
 * Import 2 source files and 2 graphic files to your project
+* This library is written with ARC. You can add your own `[release]` to use with non-ARC project.
 
 ### How to use
 
