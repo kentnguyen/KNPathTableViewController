@@ -1,6 +1,6 @@
 ## KNPathTableViewController
 
-KNPathTableViewController is an UITableViewController with an customizable overlay panel, inspired by [Path app](https://path.com/).
+KNPathTableViewController is an UITableViewController with a small customizable overlay panel that shows up when you scroll the table, inspired by [Path app](https://path.com/).
 
 <img src="https://github.com/kentnguyen/KNPathTableViewController/blob/master/screenshot1.png?raw=true" />``
 <img src="https://github.com/kentnguyen/KNPathTableViewController/blob/master/screenshot2.png?raw=true" />
