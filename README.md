@@ -26,7 +26,7 @@ Download a demo clip [here](https://github.com/kentnguyen/KNPathTableViewControl
 3. The image size will be detected automatically and stretch at half way point
 4. Override methods found in `.h`
 
-Read my [blog post](http://kentnguyen.com/) for detailed usage.
+Read my [blog post](http://kentnguyen.com/ios/knpathtableviewcontroller/) for detailed usage.
 
 Check out my [other app](http://bit.ly/z65Dh6/) too
 
