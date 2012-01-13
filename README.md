@@ -28,7 +28,7 @@ Download a demo clip [here](https://github.com/kentnguyen/KNPathTableViewControl
 
 Read my [blog post](http://kentnguyen.com/ios/knpathtableviewcontroller/) for detailed usage.
 
-Check out my [other app](http://bit.ly/z65Dh6/) too
+Check out my [other app](http://bit.ly/z65Dh6) too
 
 ### License
 KNPathTableViewController is licensed under MIT License
