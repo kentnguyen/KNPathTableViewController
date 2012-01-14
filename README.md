@@ -52,5 +52,8 @@ THE SOFTWARE.
 
 ### References
 
-There was a partial implementation by FMInfoPanelViewController but it has many limitations compare to the Path app
+There is a partial implementation by FMInfoPanelViewController but it has many limitations compare to the Path app
 http://blog.madefm.com/post/13817640556/ios-devcorner-attaching-an-info-panel-to-a
+
+Here is another complete implemation matching Path's date scroller. If you need the exact functionality, use this.
+http://cocoacontrols.com/platforms/ios/controls/timescroller
