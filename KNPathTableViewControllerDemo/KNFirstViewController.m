@@ -29,23 +29,16 @@
 
 -(void)viewDidLoad {
   [super viewDidLoad];
-  infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 4, 140, 20)];
-  infoLabel.font = [UIFont boldSystemFontOfSize:12];
-  infoLabel.textAlignment = UITextAlignmentLeft;
-  infoLabel.textColor = [UIColor whiteColor];
-  infoLabel.shadowColor = [UIColor blackColor];
-  infoLabel.backgroundColor = [UIColor clearColor];
-  infoLabel.shadowOffset = CGSizeMake(0, 1);
+  
   // [self.infoPanel addSubview:infoLabel] // this will not work, too early to add
 }
 
 -(void)infoPanelWillAppear:(UIScrollView *)scrollView {
-  if (![infoLabel superview]) [self.infoPanel addSubview:infoLabel];
 }
 
 -(void)infoPanelDidScroll:(UIScrollView *)scrollView atPoint:(CGPoint)point {
   NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:point];
-  infoLabel.text = [NSString stringWithFormat:@"Something about %d", indexPath.row];
+  self.infoPanel.title = [__tableView cellForRowAtIndexPath:indexPath].textLabel.text;
 }
 
 #pragma mark - Give table some content
@@ -66,7 +59,12 @@
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
   }
 
-  cell.textLabel.text = [array objectAtIndex:indexPath.row];
+    if (indexPath.row < 10) {
+        cell.textLabel.text = [array objectAtIndex:indexPath.row];
+    } else {
+        cell.textLabel.text = [NSString stringWithFormat:@"Row %i", indexPath.row];
+    }
+  
   return cell;
 }
 

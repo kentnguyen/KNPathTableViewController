@@ -29,7 +29,7 @@
 
 -(void)infoPanelDidScroll:(UIScrollView *)scrollView atPoint:(CGPoint)point {
   NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:point];
-  infoLabel.text = [NSString stringWithFormat:@"In section %d", indexPath.section+1];
+  self.infoPanel.title = [NSString stringWithFormat:@"In section %d", indexPath.section+1];
 }
 
 #pragma mark - Give table some content
