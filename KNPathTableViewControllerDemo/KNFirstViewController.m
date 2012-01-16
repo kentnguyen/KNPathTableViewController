@@ -19,7 +19,15 @@
     // Add a series of number
     array = [[NSMutableArray alloc] init];
     for (int k=0;k<100;k++) {
-      [array addObject:[NSString stringWithFormat:@"Test row number %d", k]];
+      if(k < 30){
+        [array addObject:[NSString stringWithFormat:@"Row %d", k]];
+      }
+      else if(k < 60) {
+        [array addObject:[NSString stringWithFormat:@"Longer row %d", k]];
+      }
+      else {
+       [array addObject:[NSString stringWithFormat:@"Even longer row %d", k]]; 
+      }
     }
   }
   return self;
@@ -59,11 +67,9 @@
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
   }
 
-    if (indexPath.row < 10) {
-        cell.textLabel.text = [array objectAtIndex:indexPath.row];
-    } else {
-        cell.textLabel.text = [NSString stringWithFormat:@"Row %i", indexPath.row];
-    }
+
+  cell.textLabel.text = [array objectAtIndex:indexPath.row];
+
   
   return cell;
 }
