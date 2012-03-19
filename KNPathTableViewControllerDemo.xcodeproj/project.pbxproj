@@ -99,20 +99,11 @@
 		376B0CF614BF18800049756D /* KNPathTableViewControllerDemo */ = {
 			isa = PBXGroup;
 			children = (
-				376B0D0514BF18800049756D /* first.png */,
-				376B0D0714BF18800049756D /* first@2x.png */,
-				376B0D0C14BF18800049756D /* second.png */,
-				376B0D0E14BF18800049756D /* second@2x.png */,
 				376B0CFF14BF18800049756D /* KNAppDelegate.h */,
 				376B0D0014BF18800049756D /* KNAppDelegate.m */,
-				376B0D2B14BF1D0F0049756D /* KNFirstViewController.h */,
-				376B0D2D14BF1D3F0049756D /* KNFirstViewController.m */,
-				376B0D0914BF18800049756D /* KNSecondViewController.h */,
-				376B0D0A14BF18800049756D /* KNSecondViewController.m */,
-				376B0D1314BF18800049756D /* KNSecondViewController.xib */,
-				376B0D3614BF54F80049756D /* KNThirdViewController.h */,
-				376B0D3714BF54F80049756D /* KNThirdViewController.m */,
 				376B0CF714BF18800049756D /* Supporting Files */,
+				8BDB5D941517674700EA8680 /* ViewControllers */,
+				8BDB5D921517672D00EA8680 /* Images */,
 			);
 			path = KNPathTableViewControllerDemo;
 			sourceTree = "<group>";
@@ -137,6 +128,31 @@
 				376B0D2714BF1C6A0049756D /* KNTableOverlay@2x.png */,
 			);
 			path = KNPathTableViewController;
+			sourceTree = "<group>";
+		};
+		8BDB5D921517672D00EA8680 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				376B0D0514BF18800049756D /* first.png */,
+				376B0D0714BF18800049756D /* first@2x.png */,
+				376B0D0C14BF18800049756D /* second.png */,
+				376B0D0E14BF18800049756D /* second@2x.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		8BDB5D941517674700EA8680 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				376B0D2B14BF1D0F0049756D /* KNFirstViewController.h */,
+				376B0D2D14BF1D3F0049756D /* KNFirstViewController.m */,
+				376B0D0914BF18800049756D /* KNSecondViewController.h */,
+				376B0D0A14BF18800049756D /* KNSecondViewController.m */,
+				376B0D1314BF18800049756D /* KNSecondViewController.xib */,
+				376B0D3614BF54F80049756D /* KNThirdViewController.h */,
+				376B0D3714BF54F80049756D /* KNThirdViewController.m */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
