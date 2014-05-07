@@ -25,13 +25,7 @@
 #pragma mark - Custom init
 
 -(id)initWithStyle:(UITableViewStyle)style {
-  if ((self = [self initWithStyle:style infoPanelSize:KNPathTableOverlayDefaultSize])) {
-  }
-  return self;
-}
-
--(id)initWithStyle:(UITableViewStyle)style infoPanelSize:(CGSize)size {
-  if ((self = [super init])) {
+  if ((self = [self init])) {
     // The tableview
     __tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:style];
     __tableView.delegate = self;
@@ -39,16 +33,9 @@
     [self.view addSubview:__tableView];
 
     // The panel
-    __infoPanelSize = size;
-    __infoPanelInitialFrame = CGRectMake(-__infoPanelSize.width, 0, __infoPanelSize.width, __infoPanelSize.height);
-    __infoPanel = [[UIView alloc] initWithFrame:__infoPanelInitialFrame];
-
-    // Initialize overlay panel with stretchable background
-    UIImageView * bg = [[UIImageView alloc] initWithFrame:__infoPanel.bounds];
-    UIImage * overlay = [UIImage imageNamed:@"KNTableOverlay"];
-    bg.image = [overlay stretchableImageWithLeftCapWidth:overlay.size.width/2.0 topCapHeight:overlay.size.height/2.0];
-    [__infoPanel setAlpha:0];
-    [__infoPanel addSubview:bg];
+    __infoPanel = [[KNInfoLabel alloc] init];
+    __infoPanel.title = @"Hehe";
+    __infoPanel.alpha = 0;
   }
   return self;
 }
@@ -87,7 +74,7 @@
     // Add it to indicator
     [self moveInfoPanelToIndicatorView];
 
-		// Prepare to slide in
+    // Prepare to slide in
     CGRect f = __infoPanel.frame;
     CGRect f2= f;
     f2.origin.x += KNPathTableSlideInOffset;
@@ -97,12 +84,12 @@
     [self infoPanelWillAppear:scrollView];
     [UIView animateWithDuration:KNPathTableFadeInDuration
                      animations:^{
-      __infoPanel.alpha = 1;
-      __infoPanel.frame = f;
-    } completion:^(BOOL finished) {
-      [self infoPanelDidAppear:scrollView];
-    }];
-	}
+                       __infoPanel.alpha = 1;
+                       __infoPanel.frame = f;
+                     } completion:^(BOOL finished) {
+                       [self infoPanelDidAppear:scrollView];
+                     }];
+  }
   
   // If it is waiting to fade out, then maintain position
   else if ([__infoPanel superview] == self.view) {
@@ -160,7 +147,7 @@
 
 -(void)moveInfoPanelToIndicatorView {
   UIView * indicator = [[self.tableView subviews] lastObject];
-  CGRect f = __infoPanelInitialFrame;
+  CGRect f = CGRectMake(-__infoPanel.frame.size.width, 0, __infoPanel.frame.size.width, __infoPanel.frame.size.height);
   f.origin.y = indicator.frame.size.height/2 - f.size.height/2;
   if ([__infoPanel superview]) [__infoPanel removeFromSuperview];
   [indicator addSubview:__infoPanel];
@@ -193,12 +180,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *CellIdentifier = @"Cell";
-
+  
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
   }
-
+  
   return cell;
 }
 

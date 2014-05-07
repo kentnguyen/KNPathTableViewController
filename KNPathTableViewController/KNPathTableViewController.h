@@ -19,22 +19,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
-#define KNPathTableFadeInDuration         0.3
-#define KNPathTableFadeOutDuration        0.3
-#define KNPathTableFadeOutDelay           0.5
-#define KNPathTableSlideInOffset         16.0
-#define KNPathTableOverlayDefaultSize    CGSizeMake(150, 32)
+#import "KNInfoLabel.h"
 
 @interface KNPathTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
-  UIView * __infoPanel;
-  CGSize   __infoPanelSize;
-  CGRect   __infoPanelInitialFrame;
+  KNInfoLabel * __infoPanel;
   CGFloat  __initalScrollIndicatorHeight;
   UITableView * __tableView;
 }
 
-@property (nonatomic,readonly) UIView * infoPanel;
+@property (retain) KNInfoLabel * infoPanel;
 @property (nonatomic,readonly) UITableView * tableView;
 
 -(id)initWithStyle:(UITableViewStyle)style;
